@@ -1,0 +1,41 @@
+server:
+  port: 20080
+  context-path: /phoenix/wings
+
+spring:
+  application:
+    name: phoenix-wings
+  output.ansi.enabled: detect
+  profiles:
+    active: dev
+  datasource:
+    druid:
+      filters: stat
+      useGlobalDataSourceStat: true
+      connectionProperties: druid.stat.logSlowSql=true;druid.stat.slowSqlMillis=2000
+      test-while-idle: false
+  jpa:
+    properties:
+      show-sql: false
+      hibernate.default_schema: PHOENIX_WINGS
+
+logging:
+  file: logs/phoenix-wings.log
+  level:
+    com.icbc.sh.wechatplatform: INFO
+    org.springframework: ERROR
+    org.hibernate: ERROR
+    springfox.documentation: ERROR
+    io.swagger: FATAL
+    com.alibaba: ERROR
+    org.mybatis: ERROR
+
+pyramid:
+  base-package: cn.chenrf.phoenixwings
+  security:
+    enabled: false
+
+swagger:
+  base-package: cn.chenrf.phoenixwings
+  base-path: /**
+  exclude-path: /error, /ops/**
